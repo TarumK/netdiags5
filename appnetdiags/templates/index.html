@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Диагностика сети</title>
+</head>
+<body>
+<h1>Диагностика сети</h1>
+<hr>
+<form action="message/">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Метод проверки
+    <select name="service">
+<!--        <option disabled>Выбор типа проверки</option>-->
+        <option>Процент потерь и среднее время отклика (ping) </option>
+        <option>Открытые порты и службы</option>
+    </select>
+        <p>
+    <input type="submit" name="Button" value="Начать проверку" onclick="alert('132323')">
+
+</form>
+<script>
+    onButtonclick
+</script>
+
+<script>
+    document.getElementById("id_sector_name").addEventListener("change", function() {
+        var sector_id = this.value;
+        var serverSelect = document.getElementById("id_server_name");
+        serverSelect.innerHTML = "";
+        fetch("/start/" + sector_id + "/")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(function(server) {
+                    var option = document.createElement("option");
+                    option.value = server.id;
+                    option.text = server.name;
+                    serverSelect.add(option);
+                });
+            });
+    });
+</script>
+
+</body>
+</html>
