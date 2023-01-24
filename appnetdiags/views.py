@@ -9,7 +9,7 @@ from .forms import MyForm
 def index(request):
     form = MyForm()
     # data = Sector.objects.all()
-    return render(request, 'index.html', {'form': form} )
+    return render(request, 'index.html', {'form': form})
 
 
 def start(request, sector_id):
