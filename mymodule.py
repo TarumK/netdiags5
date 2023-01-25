@@ -1,11 +1,12 @@
 import time
 from ping3 import ping, verbose_ping
 
+ping_count = 100
 def hostping(host_ip):
     average = 0.00000
     ip = f'{host_ip}'
     time_response = 0.000000
-    global ping_count
+    # global ping_count
     ping_count = 100         #Количество отправляемых пакетов
     lost_count = 0          #Количество потерянных пакетов
     size_package = 128       #Размер отправляемых пакетов в байтах
@@ -25,3 +26,5 @@ def hostping(host_ip):
     print(f'Отправлено пакетов: {ping_count}')
     print(f'Потеряно пакетов: {lost_count}')
     print(f'Процент потерь пакетов: {int(lost_count/ping_count*100)}%')
+
+    return ping_count

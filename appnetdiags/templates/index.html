@@ -7,22 +7,24 @@
 <body>
 <h1>Диагностика сети</h1>
 <hr>
-<form action="message/">
+
+<form action="/" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <p>Метод проверки
+    {{ form }}
+    Метод проверки:
     <select name="service">
 <!--        <option disabled>Выбор типа проверки</option>-->
-        <option>Процент потерь и среднее время отклика (ping) </option>
-        <option>Открытые порты и службы</option>
+        <option>ping</option>
+        <option>порты и службы</option>
     </select>
-        <p>
-    <input type="submit" name="Button" value="Начать проверку" onclick="alert('132323')">
+
+    <input type="submit" name="Button" value="Начать проверку">
 
 </form>
-<script>
-    onButtonclick
-</script>
+<hr>
+Оправлено пакетов: <b>{{ ping_count1 }}</b>
+<br>
+Среднее время отклика: <b>{{ lost_count1 }}</b>
 
 <script>
     document.getElementById("id_sector_name").addEventListener("change", function() {
