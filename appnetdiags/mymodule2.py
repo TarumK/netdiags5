@@ -9,7 +9,7 @@ def hostping(host_ip):
     lost_count = 0          #Количество потерянных пакетов
     size_package = 128       #Размер отправляемых пакетов в байтах
     for count in range(1, ping_count + 1):
-        time_response = ping(ip, size=size_package, unit='s')
+        time_response = verbose_ping(ip, size=size_package, unit='s')
         if time_response is not False:
             # print(f'{count}: Ответ от {ip}: время = {"%.6f" % (time_response)}')
             average = average + time_response
