@@ -11,35 +11,36 @@ import time
 
 def index(request):
 
-    if request.method=="POST":
-        host_list = ['127.0.0.1', '192.168.32.47']
+    if request.method == "POST":
+        host_list = ['localhost', '127.0.0.1']
         for host in host_list:
             list_vozrata = hostping(host)
             ping_count1 = list_vozrata[0]
-            lost_count1 = list_vozrata[1]
-            current_host = host_list
+            average1 = list_vozrata[1]
+            current_host = host
 
 
 
             log = Log()
             log.log_host = host
             log.log_ping_count = ping_count1
-            log.log_lost_count = lost_count1
+            log.log_average = average1
             log.save()
 
         form = MyForm(request.POST)
-        data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
+        # data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
         # return render(request, "index.html", context=data)
         # data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
     else:
         ping_count1 = 0
-        lost_count1 = 0
+        # lost_count1 = 0
+        average1 = 0
         current_host = []
         form = MyForm()
 
     # data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
     allrec = Log.objects.all()
-    return render(request, "index.html", {"allrec": allrec, "form": form, "ping_count1": ping_count1, "lost_count1": lost_count1, "host": current_host})
+    return render(request, "index.html", {"allrec": allrec, "form": form, "ping_count1": ping_count1, "average1": average1, "host": current_host})
 
 
 def start(request, sector_id):

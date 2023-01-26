@@ -20,8 +20,9 @@ class Server(models.Model):
 class Log(models.Model):
     log_date = models.DateTimeField(auto_now_add=True)
     log_host = models.CharField(max_length=40, default='host')
+    log_average = models.FloatField(default=0.00)
     log_ping_count = models.IntegerField()
-    log_lost_count = models.IntegerField()
+    log_lost_count = models.IntegerField(default=0.00)
 
     class Meta:
         ordering = ['-log_date']
