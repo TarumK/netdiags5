@@ -16,3 +16,16 @@ class Server(models.Model):
 
     def __str__(self):
         return self.name
+
+class Log(models.Model):
+    log_date = models.DateTimeField(auto_now_add=True)
+    log_host = models.CharField(max_length=40, default='host')
+    log_ping_count = models.IntegerField()
+    log_lost_count = models.IntegerField()
+
+    class Meta:
+        ordering = ['-log_date']
+
+
+    def __str__(self):
+         return self.log_host

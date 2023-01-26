@@ -1,48 +1,126 @@
 <!DOCTYPE html>
 <html>
 <style>
-#myProgress {
-  width: 100%;
-  background-color: #ddd;
+// Для процентного числа
+@import url('https://fonts.googleapis.com/css?family=Oswald:400');
+
+// Убираем стандартные отступы
+* { border: 0; margin: 0; }
+
+// Обертка, для того чтобы выравнять по центру
+.wrapper {
+  display: flex;
+  height: 100vh;
+  &__align-inside {
+    background-color: #e9e5ce;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: #04AA6D;
+// Свойства круга (внешнего и внутреннего)
+.circle {
+  display: flex;
+  height: 250px;
+  width: 250px;
+  &__count_cosmetics {
+    position: absolute;
+    font-size: 1.7em;
+    font-family: 'Oswald';
+    letter-spasing: 5px;
+    z-index: 1000;
+  }
+  &__block {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &_cosmetics {
+    box-shadow: 0 0 30px;
+    border-radius: 100%;
+    background-color: #FFF;
+    transition-duration: 3s;
+  }
+  &__item { width: 10%; height: 10%; }
+  &__item_cosmetics {
+    background-color: inherit;
+    border-radius: 100%;
+  }
+  &__item_animation {
+    animation: change-color 4s infinite alternate ease-in-out;
+  }
+}
+
+.button-clear {
+  margin-top: 20px;
+  border: 1px solid silver;
+  padding: 15px 30px;
+  background-color: white;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  box-shadow: -5px 10px 10px silver;
+  font-size: 18px;
+  transition-duration: .3s;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 5px 10px 8px silver;
+    border: 2px solid #FFF;
+  }
+}
+
+// Анимация круга внутри
+@keyframes change-color {
+  0% { background-color: inherit; }
+  25% { background-color: #B78A49	; }
+  50% { background-color: #355677	; }
+  75% { background-color: silver; }
+  100% { background-color: #317B61; }
 }
 </style>
 <body>
+<!-- Обертка, чтобы центрировать -->
+<div class="wrapper wrapper__align-inside">
+  <!-- Внешний круг -->
+  <div id="jsMainCircle" class="circle circle__block circle_cosmetics">
+    <!-- Процент загрузки в числе -->
+    <div id="jsCount" class="circle__count circle__count_cosmetics">0 %</div>
+    <!-- Внутренний круг  -->
+    <div id="jsSize" class="circle__item circle__item_cosmetics circle__item_animation"></div>
+  </div>
 
-<h1>JavaScript Progress Bar</h1>
-
-<div id="myProgress">
-  <div id="myBar"></div>
+  <div class="button-clear">clear</div>
 </div>
 
-<br>
-<button onclick="move()">Click Me</button>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script>
-var i = 0;
-function move() {
-  if (i == 0) {
-    i = 1;
-    var elem = document.getElementById("myBar");
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
-        clearInterval(id);
-        i = 0;
-      } else {
-        width++;
-        elem.style.width = width + "%";
-      }
-    }
-  }
-}
-</script>
+ var percent = 0,
+    t_delay = 30;
 
+function preload() {
+  var idInterval = setInterval(function() {
+    jsCount.innerHTML = percent + " %";
+    document.getElementById("jsSize").style.width = percent + "%";
+    document.getElementById("jsSize").style.height = percent + "%";
+    percent++;
+    if (percent >= 100) {
+      document.getElementById("jsSize").classList.remove("circle__item_animation");
+      document.getElementById("jsCount").innerHTML = "Complete";
+    }
+    percent > 100 ? clearInterval(idInterval) : true;
+  }, t_delay);
+}
+
+preload();
+
+$(".button-clear").click(function() {
+  percent = 0;
+  t_delay = 30;
+  document.getElementById("jsSize").classList.add("circle__item_animation");
+  preload();
+});
+</script>
 </body>
 </html>

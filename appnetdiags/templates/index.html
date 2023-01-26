@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Aнализатор и диагностика локальной сети</title>
-<!--    <link href="{% static 'css/styles2.css' %}" rel = "stylesheet">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="{% static 'css/styles4.css' %}" rel = "stylesheet">
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">-->
 </head>
 <body>
 <table width="100%">
@@ -35,10 +35,18 @@
 
 </form>
 <hr>
-Оправлено пакетов: <b>{{ ping_count1 }}</b>
-<br>
-Среднее время отклика: <b>{{ lost_count1 }}</b>
+<table>
+    <tr>
+        <td>Дата </td><td>Хост</td> </td><td> Оправлено пакетов</td> <td>Среднее время отклика</td>
+    </tr>
+{% for rec in allrec %}
+    <tr>
+        <td>{{ rec.log_date }} </td><td>{{ rec.log_host }}</td> </td><td align="right">{{ rec.log_ping_count }}</td> <td align="right">{{ rec.log_lost_count }}</td>
+    </tr>
+{% endfor %}
+</table>>
 
+<br>
 <script>
     document.getElementById("id_sector_name").addEventListener("change", function() {
         var sector_id = this.value;
