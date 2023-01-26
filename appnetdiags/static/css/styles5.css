@@ -1,0 +1,60 @@
+body, html {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 0pt;
+    margin-top: 0pt;
+    background: URL(24.png) white;
+     color: black;
+}
+
+code, pre, tt { font-family: Courier, "Courier New", monospace; }
+
+body, table, tr, td, th  {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px; line-height: 17px;
+}
+
+/* General header styles */
+h1, h2, h3, h4, th { font-weight: 600; }
+
+em { font-weight: 500; font-size: 15px serif; }
+
+h1 { font-size: 150%; }
+h2 { font-size: 140%; }
+h3 { font-size: 120%; }
+h4 { font-size: 100%; }
+
+a:link  {text-decoration: none; color: black }
+a:visited  {text-decoration: none; color: blue }
+a:hover {text-decoration:underline; color: blue }
+table, p { margin-top: 1px;
+           padding: 5px;
+	   margin-bottom: 1px;
+}
+
+img {
+	border: 0px;
+}
+input { margin-top: 2px;
+     background: #EEE9E9;
+     font-size:100%;
+     border: solid  gray 1px;
+     padding:2px;
+     color: darkblue;}
+table {
+        border-collapse: collapse;
+
+    }
+    table.brd th,
+    table.brd td {
+        border: 1px solid #000;
+
+    }
+q {
+  font-family: Times, serif; /* РЁСЂРёС„С‚ СЃ Р·Р°СЃРµС‡РєР°РјРё */
+  font-style: italic; /* РљСѓСЂСЃРёРІРЅРѕРµ РЅР°С‡РµСЂС‚Р°РЅРёРµ С‚РµРєСЃС‚Р° */
+  color: navy; /* РЎРёРЅРёР№ С†РІРµС‚ С‚РµРєСЃС‚Р° */
+  quotes: "\00ab" "\00bb"; /* РљР°РІС‹С‡РєРё РІ РІРёРґРµ РґРІРѕР№РЅС‹С… СѓРіР»РѕРІС‹С… СЃРєРѕР±РѕРє */
+ }
+
+

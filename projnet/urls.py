@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('start/<int:sector_id>/', views.start),
-    path('message/<int:ping100>/', views.message),
+    # path('message/<int:ping100>/', views.message),
 ]

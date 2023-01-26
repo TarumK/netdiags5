@@ -3,23 +3,19 @@ from django.http import JsonResponse, HttpResponse
 from .models import Sector, Server, Log
 from .forms import MyForm
 from ping3 import ping, verbose_ping
-import time
-# from .mymodule import hostping
-
 # Create your views here.
 
 
 def index(request):
 
     if request.method == "POST":
-        host_list = ['localhost', '127.0.0.1']
+        host_list = ['127.0.0.1', 'localhost']
+        form_ping_count = 100
         for host in host_list:
             list_vozrata = hostping(host)
             ping_count1 = list_vozrata[0]
             average1 = list_vozrata[1]
             current_host = host
-
-
 
             log = Log()
             log.log_host = host
@@ -28,12 +24,9 @@ def index(request):
             log.save()
 
         form = MyForm(request.POST)
-        # data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
-        # return render(request, "index.html", context=data)
-        # data = {"ping_count1": ping_count1, "lost_count1": lost_count1}
+
     else:
         ping_count1 = 0
-        # lost_count1 = 0
         average1 = 0
         current_host = []
         form = MyForm()
@@ -51,19 +44,10 @@ def start(request, sector_id):
     return JsonResponse(server_list, safe=False)
 
 
-def message(request, ping100):
-    hostping('192.168.11.76')
-    # count_ping = ping_count
-    # mess = '111'
-    ping100 = 999
-    return render(request,"index.html", {'ping100': ping100})
-        #HttpResponse('sdafsdfs')
-
 def hostping(host_ip):
     average = 0.00000
     ip = f'{host_ip}'
     time_response = 0.000000
-    # global ping_count
     ping_count = 10         #Количество отправляемых пакетов
     lost_count = 0          #Количество потерянных пакетов
     size_package = 128       #Размер отправляемых пакетов в байтах
