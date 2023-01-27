@@ -7,12 +7,17 @@ from ping3 import ping, verbose_ping
 
 
 def index(request):
-
+    host_list = []
     if request.method == "POST":
-        host_list = ['127.0.0.1', 'localhost']
-        form_ping_count = 100
+        # host_list.add = ['127.0.0.1', 'localhost']
+        packet_count = int(request.POST.get('packet_count'))
+        server_name = request.POST.get('server_name')
+        # server_name = dict(server_name_tuple)
+        print(server_name)
+        host_list.append('127.0.0.1')
+        # form_ping_count = 100
         for host in host_list:
-            list_vozrata = hostping(host)
+            list_vozrata = hostping(host, packet_count)
             ping_count1 = list_vozrata[0]
             average1 = list_vozrata[1]
             current_host = host
@@ -44,11 +49,11 @@ def start(request, sector_id):
     return JsonResponse(server_list, safe=False)
 
 
-def hostping(host_ip):
+def hostping(host_ip, packet_count):
     average = 0.00000
     ip = f'{host_ip}'
     time_response = 0.000000
-    ping_count = 10         #Количество отправляемых пакетов
+    ping_count = packet_count         #Количество отправляемых пакетов
     lost_count = 0          #Количество потерянных пакетов
     size_package = 128       #Размер отправляемых пакетов в байтах
     for count in range(1, ping_count + 1):
