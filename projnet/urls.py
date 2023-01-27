@@ -25,3 +25,7 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
 
 ]
+
+admin.site.site_header = 'Панель администратора'
+admin.site.site_title = 'Админка'
+admin.site.index_title = 'Добро пожаловать в интерфейс администратора!'
