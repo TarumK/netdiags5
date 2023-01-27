@@ -24,10 +24,11 @@ h2 { font-size: 140%; }
 h3 { font-size: 120%; }
 h4 { font-size: 100%; }
 
-a:link  {text-decoration: none; color: black }
-a:visited  {text-decoration: none; color: blue }
+a:link  {text-decoration: none; color: blue }
+a:visited  {text-decoration: none; color: navy }
 a:hover {text-decoration:underline; color: blue }
 table, p { margin-top: 1px;
+border-spacing: 7px 11px;
            padding: 5px;
 	   margin-bottom: 1px;
 }
@@ -43,10 +44,12 @@ input { margin-top: 2px;
      color: darkblue;}
 table {
         border-collapse: collapse;
-
+        border-spacing: 7px 11px;
+        padding:2px;
     }
     table.brd th,
     table.brd td {
+
         border: 1px solid #000;
 
     }

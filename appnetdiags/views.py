@@ -9,7 +9,10 @@ from ping3 import ping, verbose_ping
 def index(request):
 
     if request.method == "POST":
-        host_list = ['127.0.0.1', 'localhost']
+        # host_list = ['127.0.0.1', 'localhost']
+        host_list = []
+        host_list.append(request.POST.get('server_name'))
+        print(host_list)
         form_ping_count = 100
         for host in host_list:
             list_vozrata = hostping(host)
@@ -69,3 +72,10 @@ def hostping(host_ip):
     # print(f'Процент потерь пакетов: {int(lost_count/ping_count*100)}%')
     sr = average/ping_count
     return [ping_count, sr]
+
+
+def about(request):
+    return HttpResponse('Страница с информацией о сервисе...')
+
+def feedback(request):
+    return HttpResponse('Подобие обратной связи и контактов...')
