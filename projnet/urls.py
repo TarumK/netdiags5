@@ -23,3 +23,7 @@ urlpatterns = [
     path('start/<int:sector_id>/', views.start),
     # path('message/<int:ping100>/', views.message),
 ]
+
+admin.site.site_header = 'Панель администратора'
+admin.site.site_title = 'Админка'
+admin.site.index_title = 'Добро пожаловать в интерфейс администратора!'
