@@ -11,24 +11,31 @@ def index(request):
     if request.method == "POST":
 # Если нажата кнопка "Отправить", то из POST-потока формы получаем количество отправляемых пакетов
 # и размер пакета
-        packet_count = int(request.POST.get('packet_count'))
+        package_count = int(request.POST.get('packet_count'))
         # server_name = request.POST.get('server_name')
         # # host_list = t_s
 # Поочередно, в цикле выбираем хосты из глобального списка серверов t_s,
 # закрепленных за подразделением и стравливаем (передаем) ее на вход
 # в качестве аргумента функции hostping()
         for host in t_s:
-            print(host)
-            list_vozrata = hostping(host, packet_count)
+            # print(host)
+            # assert host != 'Null', 'errrrrrrrrror'
+            list_vozrata = hostping(host, package_count)
 # Возвращаем из функции hostping количество вернувшихся пакетов, среднее время отклика и т.д.
-            ping_count1 = list_vozrata[0]
+            package_send = list_vozrata[0]
             average1 = list_vozrata[1]
+            package_lost = list_vozrata[2]
+            package_percent = package_lost*100/package_count
             current_host = host
+
 # Создаем экземпляр класса модели Log, где накапливаются данные по доступности хостов
 # записываем в таблицу логов данные
             log = Log()
             log.log_host = host
-            log.log_ping_count = ping_count1
+            log.log_ping_count = package_send
+            log.log_ping_receive = package_send - package_lost
+            log.log_ping_lost = package_lost
+            log.log_percent_lost = package_percent
             log.log_average = average1
             log.save()
 # Создаем экземпляр формы, связанной с моделю Log для передачи его в шаблон index.html
@@ -38,7 +45,9 @@ def index(request):
     else:
 # Это часть отрабатывает, если мы просто запустили хомячок-домашнюю страницу и ничего не передали
 # Проше говоря, не нажали на кнопку submit "Запустить тест"
-        ping_count1 = 0
+        package_send = 0
+        package_lost = 0
+        package_percent = 0
         average1 = 0
         current_host = []
         form = MyForm()
@@ -46,7 +55,9 @@ def index(request):
     allrec = Log.objects.all()
 # Отрисовываем шаблон с данными, полученными с функциональных представлений вьюхи
     return render(request, "index.html", {"allrec": allrec, "form": form,
-                                          "ping_count1": ping_count1, "average1": average1, "host": current_host})
+                                          "average1": average1, "ping_count1": package_send,
+                                          "package_lost": package_lost, "host": current_host,
+                                          "package_percent": package_percent})
 
 
 def start(request, sector_id):
@@ -63,8 +74,8 @@ def start(request, sector_id):
     for server in servers:
         server_list.append({'id': server.id, 'name': server.name})
         t_s.append(server.name)
-    print ('spisok serverov', t_s)
-    print(type(t_s))
+    # print('spisok serverov', t_s)
+    # (type(t_s))
     return JsonResponse(server_list, safe=False)
 
 def hostping(host, packet_count):
@@ -80,4 +91,4 @@ def hostping(host, packet_count):
         else:
             lost_count += 1
     sr = average/ping_count
-    return [ping_count, sr]
+    return [ping_count, sr, lost_count]

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/static/admin/css/base.css">
 </head>
 <body>
-<h3>NetDiags: диагностика локальной сети</h3>
+<center><h3>NetDiags: диагностика локальной сети</h3></center>
 <div align="right">
 <ul class="hr">
     <li><a href="/admin/">[О сервисе]</a></li>
@@ -29,6 +29,7 @@
 </ul>
 </div>
 <hr>
+<div align="center">
 <form action="/" method="POST">
     {% csrf_token %}
     {{ form }}
@@ -39,7 +40,7 @@
         <option>порты</option>
     </select>
 
-    Размер пакета(Байт):
+    Размер пакета(байт):
     <select name="packet_size">
 <!--        <option disabled>64</option>-->
         <option>32</option>
@@ -61,14 +62,20 @@
 <!--           onclick="document.write('нажата кнопка проверки');">-->
 
 </form>
+</div>
 <hr>
-<table>
+<table align="center">
     <tr align="center">
-        <td><b>Дата</b> </td><td><b>Хост</td> </td><td><b>Оправлено пакетов</b></td> <td><b>Среднее время отклика</b></td>
+        <th>Дата</th><th>Хост</th> </th> <th>Среднее время отклика</th>
+        <th>Оправлено пакетов</th><th>Получено пакетов</th>
+        <th>Потеряно пакетов</th><th> % потерь</th>
     </tr>
 {% for rec in allrec %}
     <tr>
-        <td>{{ rec.log_date }} </td><td>{{ rec.log_host }}</td> </td><td>{{ rec.log_ping_count }}</td> <td>{{ rec.log_average }}</td>
+        <td>{{ rec.log_date|date:"SHORT_DATE_FORMAT" }} {{ rec.log_date|time:"H:i" }}</td>
+        <td>{{ rec.log_host }}</td> </td><td>{{ rec.log_average |floatformat:7 }}</td>
+        <td>{{ rec.log_ping_count }}</td> <td>{{ rec.log_ping_receive }}</td>
+        <td>{{ rec.log_ping_lost }}</td><td>{{ rec.log_percent_lost |floatformat:2 }}</td>
     </tr>
 {% endfor %}
 </table>
