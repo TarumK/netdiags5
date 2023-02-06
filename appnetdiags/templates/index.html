@@ -15,7 +15,7 @@
   </style>
 <head>
     <meta charset="UTF-8">
-    <title>Aнализатор и диагностика локальной сети</title>
+    <title>Aнализ и диагностика локальной сети</title>
 <!--    <link href="{% static 'css/styles5.css' %}" rel = "stylesheet">-->
     <link rel="stylesheet" href="/static/admin/css/base.css">
 </head>
@@ -91,6 +91,24 @@
             });
     });
 </script>
-
+<!--
+<script>
+    document.getElementById("id_sector_name").addEventListener("change", function() {
+        var sector_id = this.value;
+        var serverSelect = document.getElementById("id_server_name");
+        serverSelect.innerHTML = "";
+        fetch("/start/" + sector_id + "/")
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(function(server) {
+                    var option = document.createElement("option");
+                    option.value = server.id;
+                    option.text = server.name;
+                    serverSelect.add(option);
+                });
+            });
+    });
+</script>
+//-->
 </body>
 </html>

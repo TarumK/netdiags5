@@ -33,7 +33,8 @@ def index(request):
             log.save()
 # Создаем экземпляр формы, связанной с моделю Log для передачи его в шаблон index.html
 # в качестве параметра функции прорисовки render()
-        form = MyForm(request.POST)
+#         form = MyForm(request.POST)
+            form = MyForm()
 
     else:
 # Это часть отрабатывает, если мы просто запустили хомячок-домашнюю страницу и ничего не передали
@@ -42,11 +43,13 @@ def index(request):
         average1 = 0
         current_host = []
         form = MyForm()
+        allrec = Log.objects.all()
+        return render(request, 'index.html', {'allrec': allrec, 'form': form})
 # Выбираем все записи логов, пользуяст ORM-кой, а не чистым SQL. Типа, это SELECT * FROM Log
     allrec = Log.objects.all()
 # Отрисовываем шаблон с данными, полученными с функциональных представлений вьюхи
-    return render(request, "index.html", {"allrec": allrec, "form": form,
-                                          "ping_count1": ping_count1, "average1": average1, "host": current_host})
+    return render(request, 'index.html', {'allrec': allrec,'form': form,
+                                          'ping_count1': ping_count1, 'average1': average1, 'host': current_host})
 
 
 def start(request, sector_id):
